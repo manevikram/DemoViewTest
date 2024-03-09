@@ -11,26 +11,28 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class ButtonAnimActivity : AppCompatActivity() {
+class ButtonAnimation : AppCompatActivity() {
 
-    private lateinit var cardView : CardView
-    private lateinit var btnTest : Button
+    private lateinit var materialCardView : MaterialCardView
+    private lateinit var btnTestAnimation : Button
     private val animDuration = 10000L
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_button_anim)
+        setContentView(R.layout.activity_button_animation)
 
-        cardView = findViewById(R.id.cardView)
-        btnTest = findViewById(R.id.btn_animation)
-        btnTest.viewTreeObserver.addOnGlobalLayoutListener {
-            startAnimation(btnTest, btnTest.width, animDuration)
+        materialCardView = findViewById(R.id.material_card_view)
+        btnTestAnimation = findViewById(R.id.btn_test_animation)
+        btnTestAnimation.viewTreeObserver.addOnGlobalLayoutListener {
+            startAnimation(btnTestAnimation, btnTestAnimation.width, animDuration)
         }
     }
 
@@ -46,7 +48,6 @@ class ButtonAnimActivity : AppCompatActivity() {
             }
         }
         buttonAnimator.start()
-        //startTextColorAnimation(button, animDuration)
         lifecycleScope.launch(Dispatchers.Main) {
             button.setTextColor(Color.WHITE)
             delay(2000)
@@ -58,6 +59,7 @@ class ButtonAnimActivity : AppCompatActivity() {
                 5000
             )
         }
+        //startTextColorAnimation(button, animDuration)
     }
 
     private fun textColorAnimation (buttonText : Button, fromColor: Int, toColor: Int, direction: Int = View.LAYOUT_DIRECTION_LTR, duration:Long = 5000) {

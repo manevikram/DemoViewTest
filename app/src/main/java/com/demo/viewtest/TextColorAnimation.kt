@@ -21,14 +21,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 
 
-class ButtonAnimActivity1 : AppCompatActivity() {
+class TextColorAnimation : AppCompatActivity() {
 
     private lateinit var changeColorButton: Button
     lateinit var textColor : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_button_anim1)
+        setContentView(R.layout.activity_text_color_animation)
 
         changeColorButton = findViewById(R.id.changeColor)
         textColor = findViewById(R.id.textColor)
