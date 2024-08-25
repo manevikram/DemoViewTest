@@ -23,6 +23,7 @@ import androidx.core.graphics.ColorUtils
 
 class TextColorAnimation : AppCompatActivity() {
 
+
     private lateinit var changeColorButton: Button
     lateinit var textColor : TextView
 
