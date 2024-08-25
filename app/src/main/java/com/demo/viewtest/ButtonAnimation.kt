@@ -8,32 +8,56 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.demo.viewtest.databinding.ActivityButtonAnimationBinding
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 
 class ButtonAnimation : AppCompatActivity() {
 
-    private lateinit var materialCardView : MaterialCardView
-    private lateinit var btnTestAnimation : Button
+    private var _binding : ActivityButtonAnimationBinding? = null
+    private val binding get() = _binding!!
+
     private val animDuration = 10000L
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_button_animation)
+        _binding = ActivityButtonAnimationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        materialCardView = findViewById(R.id.material_card_view)
-        btnTestAnimation = findViewById(R.id.btn_test_animation)
-        btnTestAnimation.viewTreeObserver.addOnGlobalLayoutListener {
-            startAnimation(btnTestAnimation, btnTestAnimation.width, animDuration)
+        lifecycleScope.launch {
+
+            delay(500)
+            startAnimation(binding.btnTestAnimation, binding.btnTestAnimation.width, animDuration)
+            animateButton(binding.btnFrame, binding.btnWhite, animDuration)
         }
+    }
+
+    @SuppressLint("Recycle")
+    fun animateButton(frameLayout: FrameLayout, button: TextView, animDuration: Long){
+        Log.d("Vikram", "Button width - ${button.width}")
+        val valueAnimator = ValueAnimator.ofInt(0, button.width).apply {
+            duration = animDuration
+            addUpdateListener {
+                val value = it.animatedValue as Int
+                Log.d("Vikram", "animate value - $value")
+                frameLayout.layoutParams = frameLayout.layoutParams.apply {
+                    this.width = value
+                }
+            }
+        }
+        valueAnimator.start()
     }
 
     @SuppressLint("Recycle")
@@ -99,4 +123,8 @@ class ButtonAnimation : AppCompatActivity() {
         textColor.start()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

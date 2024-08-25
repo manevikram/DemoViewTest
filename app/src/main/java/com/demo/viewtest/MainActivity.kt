@@ -4,20 +4,28 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.demo.viewtest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private var _binding : ActivityMainBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val buttonAnimation = findViewById<Button>(R.id.btn_animation)
-        buttonAnimation.setOnClickListener {
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.btnAnimation.setOnClickListener {
             startActivity(Intent(this, ButtonAnimation::class.java))
         }
 
-        val buttonTextColorAnimation = findViewById<Button>(R.id.btn_text_color_animation)
-        buttonTextColorAnimation.setOnClickListener {
+        binding.btnTextColorAnimation.setOnClickListener {
             startActivity(Intent(this, TextColorAnimation::class.java))
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

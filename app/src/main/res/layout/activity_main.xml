@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:padding="20dp"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btn_animation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button Animation"
+        android:text="@string/txt_button_animation"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -20,7 +20,7 @@
         android:id="@+id/btn_text_color_animation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button Text Color Animation"
+        android:text="@string/txt_text_color_animation"
         app:layout_constraintTop_toBottomOf="@id/btn_animation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
